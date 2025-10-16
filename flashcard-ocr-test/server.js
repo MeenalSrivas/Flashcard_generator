@@ -2,13 +2,16 @@ import express from 'express'
 import multer from 'multer'
 import path from 'path'
 import fs from 'fs'
+import cors from 'cors'
 import recognizeText from './ocr-engine.js'
 import { generateFlashcards} from './ai-generator.js'
 
 const app = express()
 const port= 3000
 
+
 app.use(express.json())
+app.use(cors())
 
 const uploadDir = 'uploads'
 
