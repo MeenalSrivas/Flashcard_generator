@@ -32,7 +32,7 @@ function App() {
     });
     setExtractedText(response.data.text);
   } catch (err) {
-    console.error("Extraction APi Error", err)
+    console.error("Extraction APi Error", err) //tracting the error more carefully 
     if (err.response){
       setError(`error:${err.response.data.error || 'Server error'}`)
     }
