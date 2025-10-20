@@ -13,6 +13,8 @@ function App() {
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+  const API_URL = 'https://flashcard-generator-t4ok.onrender.com'
+
 
   const handleExtractText = async () => {
   if (!selectedFile) return;
@@ -25,12 +27,19 @@ function App() {
   
 
   try {
-    const response = await axios.post('http://localhost:3000/api/extract-text', formData, {
+    const response = await axios.post(`${API_URL}/api/extract-text`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     setExtractedText(response.data.text);
   } catch (err) {
-    setError('Failed to extract text. Please try again.');
+    console.error("Extraction APi Error", err)
+    if (err.response){
+      setError(`error:${err.response.data.error || 'Server error'}`)
+    }
+    else{
+      setError('Network error. Failed to extract text. Please try again later.');
+    }
+    
   } finally {
     setLoading(false);
   }
@@ -42,7 +51,7 @@ function App() {
   setError('');
 
   try {
-    const response = await axios.post('http://localhost:3000/api/generate-flashcard', {
+    const response = await axios.post(`${API_URL}/api/generate-flashcard`, {
       text: extractedText,
     });
     // The response from Hugging Face is the raw array, not nested
