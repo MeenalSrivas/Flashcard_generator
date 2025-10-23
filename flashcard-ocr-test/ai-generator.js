@@ -25,7 +25,7 @@ const generateFlashcards = async (text) => {
   try {
     const response = await groq.chat.completions.create({
       // Use a fast and capable model available on Groq
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",
       messages: [
         // System message (optional but good practice)
         { role: 'system', content: 'You are an assistant that creates flashcards as a JSON array.' },
