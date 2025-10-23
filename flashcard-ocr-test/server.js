@@ -9,9 +9,22 @@ import { generateFlashcards} from './ai-generator.js'
 const app = express()
 const port= 3000
 
+const allowedorigins = [
+    'http://localhost:3001', // Your local React app (for testing)
+  'https://flashcard-generator-ch-dusky.vercel.app'
+]
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedorigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.use(express.json())
-app.use(cors())
+app.use(cors(allowedorigins))
 
 const uploadDir = 'uploads'
 
@@ -53,6 +66,7 @@ app.post('/api/generate-flashcard',async(req,res) =>{
     try{
         const flashcards = await generateFlashcards(text)
         res.json({flashcards})
+        
 
     }catch(error){
         res.status(500).json({error:'error in generating flashcards'})
