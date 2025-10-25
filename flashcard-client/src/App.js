@@ -2,13 +2,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import Flashcard from './Flashcard.js'
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [extractedText, setExtractedText] = useState('');
   const [flashcards, setFlashcards] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNextCard = () => {
+  // Move to the next card if not at the end
+  if (currentIndex < flashcards.length - 1) {
+    setCurrentIndex(currentIndex + 1);
+  }
+};
+
+const handlePrevCard = () => {
+  // Move to the previous card if not at the beginning
+  if (currentIndex > 0) {
+    setCurrentIndex(currentIndex - 1);
+  }
+};
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -17,8 +34,9 @@ function App() {
 
 
   const handleExtractText = async () => {
+  console.log("triggered extract-text button")
   if (!selectedFile) return;
-  setLoading(true);
+  setIsExtracting(true);
   setError('');
   setFlashcards([]); // Clear previous flashcards
 
@@ -41,27 +59,32 @@ function App() {
     }
     
   } finally {
-    setLoading(false);
+    setIsExtracting(false);
   }
 };
 
   const handleGenerateFlashcards = async () => {
+  setCurrentIndex(0);
   if (!extractedText) return;
-  setLoading(true);
+  setIsGenerating(true);
+  setIsExtracting(false)
   setError('');
+
 
   try {
     const response = await axios.post(`${API_URL}/api/generate-flashcard`, {
       text: extractedText,
     });
+    console.log("Received data from backend:", response.data);
     // The response from Hugging Face is the raw array, not nested
     setFlashcards(response.data.flashcards); 
   } catch (err) {
     setError('Failed to generate flashcards. Please try again.');
   } finally {
-    setLoading(false);
+    setIsGenerating(false);
   }
 };
+console.log("Rendering - isExtracting:", isExtracting, "isGenerating:", isGenerating);
 
   return (
     <div className="App">
@@ -72,10 +95,13 @@ function App() {
         <div className="step">
           <h2>Step 1: Upload Image</h2>
           <input type="file" onChange={handleFileChange} />
-          <button onClick={handleExtractText} disabled={!selectedFile || loading}>
-            {loading ? 'Extracting...' : 'Extract Text'}
+          <button  type="button" onClick={handleExtractText} disabled={!selectedFile || isExtracting || isGenerating}>
+            {isExtracting ? 'Extracting...' : 'Extract Text'}
+            
           </button>
+          
         </div>
+        
 
         {extractedText && (
           <div className="step">
@@ -86,23 +112,50 @@ function App() {
               rows="10"
               cols="80"
             />
-            <button onClick={handleGenerateFlashcards} disabled={loading}>
-              {loading ? 'Generating...' : 'Generate Flashcards'}
+            <button  type="button" onClick={handleGenerateFlashcards} disabled={isGenerating || isExtracting}>
+              {isGenerating ? 'Generating...' : 'Generate Flashcards'}
             </button>
           </div>
         )}
 
         {flashcards.length > 0 && (
           <div className="step">
-            <h2>Step 3: Your Flashcards</h2>
+            <h2 className="step-title">Step 3: Your Flashcards</h2>
             <div className="flashcard-container">
-              {flashcards.map((card, index) => (
-                <div className="flashcard" key={index}>
-                  <div className="flashcard-front"><strong>Front:</strong> {card.front}</div>
-                  <div className="flashcard-back"><strong>Back:</strong> {card.back}</div>
-                </div>
-              ))}
+              {flashcards.map((card, index) => {
+                // Determine the state of each card
+                const cardState = index < currentIndex ? 'dismissed' : index === currentIndex ? 'active' : 'upcoming';
+
+                // Calculate the style for stacking effect (transform and zIndex)
+                const stackStyle = {
+                  // Only apply stacking transform if the card is upcoming or dismissed initially
+                  transform: cardState !== 'active' ? `translateY(${-index * 4}px)` : undefined, 
+                  zIndex: flashcards.length - index,
+                };
+                return (
+                  <Flashcard
+                    key={index} // React needs a unique key for list items
+                    front={card.front}
+                    back={card.back}
+                    cardState={cardState} // Pass the calculated state ('active', 'dismissed', 'upcoming')
+                    style={stackStyle}    // Pass the stacking styles
+                    // Note: onClick logic is now handled inside Flashcard.js for flipping
+                  />
+                );
+              })}
+              
             </div>
+            <div>
+              <button onClick={handlePrevCard} disabled={currentIndex === 0} type="button">
+                Previous
+              </button>
+              <span>{currentIndex + 1} / {flashcards.length}</span>
+              <button onClick={handleNextCard} disabled={currentIndex === flashcards.length - 1} type="button">
+                Next
+              </button>
+
+            </div>
+            
           </div>
         )}
 
