@@ -1,107 +1,72 @@
-
 import React, { useState, useEffect } from 'react';
+import './flashcard.css'; // Import the new CSS file
 
-const flashcardBaseStyle = {
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-  transformStyle: 'preserve-3d',
-  transition: 'transform 0.7s ease-in-out, opacity 0.6s ease-in-out',
-  cursor: 'pointer',
-  borderRadius: '12px',
-  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
-};
-
-const flashcardFaceBaseStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  backfaceVisibility: 'hidden',
-  borderRadius: '12px',
-  overflowWrap: 'break-word',
-  wordWrap: 'break-word',
-  whiteSpace: 'pre-wrap',
-  fontFamily: "'Poppins', sans-serif", 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  padding: '25px',
-  boxSizing: 'border-box',
-};
-
-const frontFaceStyle = {
-  ...flashcardFaceBaseStyle, 
-  backgroundColor: '#ffffff',
-  color: '#333',
-  border: '1px solid #f0f0f0',
-};
-
-const backFaceStyle = {
-  ...flashcardFaceBaseStyle, 
-  background: 'linear-gradient(135deg, #61dafb 0%, #3a7bd5 100%)',
-  color: '#ffffff',
-  transform: 'rotateY(180deg)',
-};
-
-const labelStyle = {
-  fontWeight: 600,
-  color: '#999',
-  fontSize: '0.75rem',
-  textTransform: 'uppercase',
-  letterSpacing: '1.5px',
-  marginBottom: '15px',
-  display: 'flex',
-  alignItems: 'center',
-};
-
-const textStyle = {
-  fontSize: '1.1rem',
-  lineHeight: 1.6,
-  margin: 0,
-};
 
 function Flashcard({ front, back, cardState, style: propStyle }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
+  // When the card is no longer 'active', reset its flip state.
   useEffect(() => {
     if (cardState !== 'active') {
       setIsFlipped(false);
     }
   }, [cardState]);
 
+  // Handle the click to flip the card.
+  // Only allows flipping if the card is the 'active' one.
   const handleCardClick = () => {
     if (cardState === 'active') {
       setIsFlipped(!isFlipped);
     }
   };
 
+  // --- Dynamic Styles ---
+  // These styles change based on the component's state,
+  // so they remain inline.
+  
   let dynamicTransform = {};
   if (cardState === 'active') {
-    dynamicTransform = { transform: `translateY(-20px) scale(1.03) ${isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'}`, zIndex: 100 };
+    // The active card is brought up, scaled, and can be flipped
+    dynamicTransform = { 
+      transform: `translateY(-20px) scale(1.03) ${isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'}`, 
+      zIndex: 100 
+    };
   } else if (cardState === 'dismissed') {
-    dynamicTransform = { transform: 'translateX(150%) rotate(45deg)', opacity: 0 };
+    // A dismissed card is animated off-screen
+    dynamicTransform = { 
+      transform: 'translateX(150%) rotate(45deg)', 
+      opacity: 0 
+    };
   }
- 
+  // 'upcoming' cards just use their default CSS transform (from propStyle)
+
+  // Combine the base, prop (stacking), and dynamic styles
   const combinedStyle = {
-    ...flashcardBaseStyle,
     ...propStyle, 
     ...dynamicTransform, 
   };
 
+  // The JSX now uses CSS classes instead of inline style objects
   return (
-    <div style={combinedStyle} onClick={handleCardClick}>
-      <div style={frontFaceStyle}>
-        <strong style={labelStyle}>👁️ Front</strong>
-        <p style={textStyle}>{front}</p>
+    <div 
+      className="flashcard-base" 
+      style={combinedStyle} 
+      onClick={handleCardClick}
+    >
+      {/* Front Face of the Card */}
+      <div className="flashcard-face flashcard-front">
+        <strong className="flashcard-label">👁️ Front</strong>
+        <p className="flashcard-text">{front}</p>
       </div>
-      <div style={backFaceStyle}>
-        <strong style={labelStyle}>✅ Back</strong>
-        <p style={textStyle}>{back}</p>
+      
+      {/* Back Face of the Card */}
+      <div className="flashcard-face flashcard-back">
+        <strong className="flashcard-label">✅ Back</strong>
+        <p className="flashcard-text">{back}</p>
       </div>
     </div>
   );
 }
 
 export default Flashcard;
+

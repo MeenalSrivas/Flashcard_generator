@@ -98,3 +98,12 @@ button:disabled {
   font-size: 1.2rem;
   font-weight: bold;
 }
+
+@media(max-width:768px){
+  .flashcard-container{
+    width:90vw;
+    height:280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
