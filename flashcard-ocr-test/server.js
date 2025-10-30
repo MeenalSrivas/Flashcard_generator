@@ -34,11 +34,11 @@ try {
 }
 
 // --- MongoDB Connection ---
-if (!process.env.MONGO_URI) {
+if (!process.env.Mongo_URI) {
     console.error("FATAL ERROR: MONGO_URI is not defined.");
     process.exit(1);
 }
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.Mongo_URI)
     .then(() => {console.log('MongoDB Connected...');
 
     app.listen(port, () =>{
