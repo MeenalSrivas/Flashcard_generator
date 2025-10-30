@@ -99,7 +99,7 @@ const handlePrevCard = () => {
           return;
       }
 
-      const response = await axios.post(`http://localhost:3000/api/decks`,
+      const response = await axios.post(`${API_URL}/api/decks`,
           { deckName: deckName, flashcards: flashcards },
           authHeader
       );
@@ -118,7 +118,7 @@ const handlePrevCard = () => {
     setIsFetchingDecks(true);
     setError('');
     try {
-      const response = await axios.get(`http://localhost:3000/api/decks`, {
+      const response = await axios.get(`${API_URL}/api/decks`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSavedDecks(response.data);
