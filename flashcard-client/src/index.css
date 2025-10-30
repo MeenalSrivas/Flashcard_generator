@@ -22,3 +22,16 @@ code {
   padding-bottom: 40px; /* Adjust the value (e.g., 15px) as needed */
   margin-bottom: 20px; /* Optional: Add margin if you want space below the padding too */
 }
+
+/* These are the default desktop styles */
+.my-box {
+  width: 500px;
+}
+
+/* --- Media Query for tablets and phones --- */
+@media (max-width: 768px) { 
+  /* Styles inside here ONLY apply if the screen is 768px or less */
+  .my-box {
+    width: 90%; /* On a phone, make it 90% of the screen width */
+  }
+}

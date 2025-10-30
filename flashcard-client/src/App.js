@@ -197,7 +197,7 @@ console.log("Rendering - isExtracting:", isExtracting, "isGenerating:", isGenera
         {user ? (
           // --- Logged In View ---
           <>
-            <button type="button" onClick={handleLogout} disabled={isSaving || isFetchingDecks} style={{ position: 'absolute', top: 20, right: 20 }}>
+            <button className="logout-btn" type="button" onClick={handleLogout} disabled={isSaving || isFetchingDecks} >
               Log Out
             </button>
             <h1>AI Flashcard Generator</h1>

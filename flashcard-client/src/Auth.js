@@ -63,6 +63,7 @@ function Auth() {
       <p className="auth-subtitle">Log in or sign up to create your decks</p> 
       <h2>{isSignUp ? 'Sign Up' : 'Log In'}</h2>
       <form onSubmit={handleSubmit}>
+        
         <input
           type="email"
           value={email}
@@ -81,10 +82,13 @@ function Auth() {
           required
           disabled={loading}
         />
-        <button type="submit" disabled={loading}>
+        <button className="auth-button" type="submit" disabled={loading} >
           {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Log In')}
         </button>
+        
+        
       </form>
+      
       <button type="button" onClick={() => setIsSignUp(!isSignUp)} disabled={loading}>
         Switch to {isSignUp ? 'Log In' : 'Sign Up'}
       </button>

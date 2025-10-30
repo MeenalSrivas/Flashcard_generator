@@ -42,6 +42,41 @@ button:disabled {
   color: #ff6b6b;
 }
 
+
+.logout-btn{
+  position: absolute;
+  top:20px;
+  right:20px;
+}
+.logout-btn {
+  background-color: #4a5568; /* A nice dark-gray, not quite black */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:hover {
+  background-color: #61dafb; /* Same highlight color as your auth page */
+  color: #282c34;
+  transform: translateY(-2px); /* Lifts up slightly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logout-btn:disabled {
+  background-color: #3a3f4b;
+  color: #7a8291;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
 /* CORRECT CONTAINER STYLES */
 .flashcard-container {
   position: relative; /* Essential for absolute positioning of children */
