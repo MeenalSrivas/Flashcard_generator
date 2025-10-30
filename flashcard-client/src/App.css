@@ -1,11 +1,65 @@
 /* src/App.css */
-.App { text-align: center; }
-.App-header { background-color: #282c34; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: calc(10px + 2vmin); color: white; padding: 20px; }
-.step { margin: 20px; padding: 20px; border: 1px solid #61dafb; border-radius: 8px; width: 80%; }
-input, button, textarea { font-size: 1rem; padding: 10px; margin: 10px; border-radius: 5px; border: none; }
-textarea { width: 95%; background-color: #eee; color: #282c34; }
-button:disabled { background-color: #555; cursor: not-allowed; }
-.error { color: #ff6b6b; }
-.flashcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-.flashcard { background-color: white; color: #282c34; padding: 15px; border-radius: 5px; width: 250px; text-align: left; }
-.flashcard-front { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 10px; }
+.App {
+  text-align: center;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  padding: 20px;
+}
+.step {
+  margin: 20px;
+  padding: 30px;
+  border: 1px solid #61dafb;
+  border-radius: 8px;
+  width: 80%;
+}
+input,
+button,
+textarea {
+  font-size: 1rem;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+}
+textarea {
+  width: 95%;
+  background-color: #eee;
+  color: #282c34;
+}
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+.error {
+  color: #ff6b6b;
+}
+
+/* CORRECT CONTAINER STYLES */
+.flashcard-container {
+  position: relative; /* Essential for absolute positioning of children */
+  perspective: 1000px;
+  width: 350px; /* Defines the stage width */
+  height: 220px; /* Defines the stage height */
+  margin: 20px auto; /* Centers the container */
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  width: 100%;
+}
+.navigation span {
+  margin: 0 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

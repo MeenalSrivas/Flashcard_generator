@@ -1,0 +1,173 @@
+/* src/AuthPage.css */
+
+/* Full-screen container to center everything */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Full viewport height */
+  width: 100%;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  box-sizing: border-box; /* Ensures padding doesn't break layout */
+
+  /* --- Floating Card Background --- */
+  background-color: #282c34; /* Base dark color */
+  position: relative; /* For the pseudo-element */
+  overflow: hidden; /* To contain the pseudo-element */
+}
+
+/* --- New Animation Styles --- */
+
+.animation-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Keep the cards contained */
+  pointer-events: none;
+}
+
+.floating-cards {
+  position: absolute;
+  bottom: -200px; /* Start below the screen */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.floating-cards li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  /* Looks like a semi-transparent card */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: floatUp 25s linear infinite;
+  z-index: 0; /* Behind the login form */
+  border-radius: 4px;
+}
+
+/* Give each card a different size, position, and animation delay/duration */
+.floating-cards li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+  animation-duration: 20s;
+}
+.floating-cards li:nth-child(2) {
+  left: 10%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 2s;
+  animation-duration: 17s;
+}
+.floating-cards li:nth-child(3) {
+  left: 70%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 4s;
+}
+.floating-cards li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+.floating-cards li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+.floating-cards li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+  animation-duration: 22s;
+}
+.floating-cards li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+.floating-cards li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 30s;
+}
+.floating-cards li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 28s;
+}
+.floating-cards li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 23s;
+}
+
+/* Main welcome title */
+.auth-title {
+  font-size: 2.5rem; /* 40px */
+  font-weight: 600;
+  margin-bottom: 0.5rem; /* 8px */
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1; /* Ensure text is above the pattern */
+}
+
+/* Subtitle below the main title */
+.auth-subtitle {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 300;
+  color: #e0e0e0;
+  margin-bottom: 2.5rem; /* 40px */
+  z-index: 1; /* Ensure text is above the pattern */
+}
+
+/* The "card" that holds the login/signup component */
+.auth-box {
+  width: 100%;
+  max-width: 400px; /* Limits width on desktop */
+  background-color: #3a3f4a; /* A slightly lighter dark shade */
+  padding: 2.5rem 2rem; /* 40px 32px */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid #4a4f5a;
+  margin: 20px; /* Add margin here instead of padding on container */
+  z-index: 1; /* Ensure the auth box is above the pattern */
+}
+
+/* Keyframes for the pattern animation */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 4px;
+  }
+  100% {
+    /* Move to 1000px *above* the container */
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%; /* Morphs into a circle */
+  }
+}
+
