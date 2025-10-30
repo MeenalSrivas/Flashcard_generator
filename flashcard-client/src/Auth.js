@@ -65,6 +65,7 @@ function Auth() {
       <form onSubmit={handleSubmit}>
         
         <input
+        classname="auth-input"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -76,6 +77,7 @@ function Auth() {
         
         <input
           type="password"
+          classname="auth-input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"

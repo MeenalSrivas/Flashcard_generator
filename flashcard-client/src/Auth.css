@@ -206,6 +206,9 @@
     margin: 10px auto;
 
   }
+  .auth-input{
+    text-align:center ;
+  }
   .logout-btn{
     position: absolute;
     top:0;
