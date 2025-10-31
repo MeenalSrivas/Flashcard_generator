@@ -2,6 +2,7 @@
   It's set to 'absolute' because it gets positioned by its parent in App.js.
 */
 .flashcard-base {
+    margin-top: 2%;
   width: 100%;
   height: 100%;
   position: absolute;

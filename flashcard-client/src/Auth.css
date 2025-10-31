@@ -220,3 +220,100 @@
 
   
 }
+/* --- "OR" DIVIDER --- */
+/* This creates the horizontal line with "OR" in the middle */
+.auth-divider {
+  width: 90%; /* Match the width of the inputs */
+  margin: 25px auto; /* Center it and add space */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #888;
+}
+
+/* This is the line before the "OR" text */
+.auth-divider::before,
+/* This is the line after the "OR" text */
+.auth-divider::after {
+  content: '';
+  flex: 1; /* Makes the lines grow to fill available space */
+  border-bottom: 1px solid #444; /* Dark line color */
+}
+
+/* This adds space around the "OR" text */
+.auth-divider span {
+  padding: 0 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+
+.google-signin-button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  z-index: 1001; /* Make sure it's on top of the animation */
+
+  /* --- These are its old styles, slightly modified --- */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #333;
+  font-weight: 600;
+  padding: 10px 15px; /* Removed fixed width */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+}
+
+/* This is the SVG icon inside the button */
+.google-signin-button .google-icon {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Hover & Active states */
+.google-signin-button:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.google-signin-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* --- TOGGLE BUTTON (Switch to Log In / Sign Up) --- */
+.toggle-auth-button {
+  /* --- Appearance --- */
+  background: none; /* Make it transparent */
+  border: none;
+  color: #61dafb; /* Use the app's highlight color */
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  /* --- Layout & Sizing --- */
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px; /* Space above the error message */
+
+  /* --- Interactivity --- */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggle-auth-button:hover {
+  color: #ffffff; /* Brighten on hover */
+  text-decoration: underline;
+}
+
+.toggle-auth-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
