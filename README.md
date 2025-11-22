@@ -1,16 +1,17 @@
 🚀 Getting Started
 Follow these steps to set up and run the project locally.
 
-1. Prerequisites
-Node.js (LTS version recommended)
+Prerequisites
 
-MongoDB Instance (local or cloud-hosted)
+1)Node.js (LTS version recommended)
 
-A Groq API Key
+2)MongoDB Instance (local or cloud-hosted)
 
-A Firebase Project for Authentication
+3)A Groq API Key
 
-Tesseract OCR installed on your system (for text extraction)
+4)A Firebase Project for Authentication
+
+5)Tesseract OCR installed on your system (for text extraction)
 
 --------------------------------------------------------------------------------------------------
 Installation
